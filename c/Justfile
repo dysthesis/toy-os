@@ -1,6 +1,12 @@
 alias r := run
 qemu := "/usr/bin/qemu-system-riscv32"
+cc := "/usr/lib/llvm/19/bin/clang"
+cflags := "-std=c11 -O2 -g3 -Wall -Wextra --target=riscv32-unknown-elf -fno-stack-protector -ffreestanding -nostdlib"
+kernel := "kernel.elf"
 
-run:
+build:
+	{{cc}} {{cflags}} -Wl,-Tkernel.ld -Wl,-Map=kernel.map -o {{kernel}} kernel.c
+	
+run: build
 	set -xue
-	{{qemu}} -machine virt -bios default -nographic -serial mon:stdio --no-reboot
+	{{qemu}} -machine virt -bios default -nographic -serial mon:stdio --no-reboot -kernel {{kernel}}
