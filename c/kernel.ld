@@ -9,6 +9,7 @@ SECTIONS {
 	. = 0x80200000;
 
 	// This section goes first...
+	// NOTE: this section contains the code of the program.
 	.text :{
 		// .text.boot is always placed at the beginning of the memory
 		KEEP(*(.text.boot));
@@ -16,16 +17,19 @@ SECTIONS {
 	}
 
 	// ...this one second...
+	// NOTE: this section contains constant data.
 	.rodata : ALIGN(4) {
 		*(.rodata .rodata.*)
 	}
 
 	// ...this one third...
+	// NOTE: this section contains read/write data.
 	.data : ALIGN(4) {
 		*(.data .data.*)
 	}
 
 	// ...and this last.
+	// NOTE: this section contains read/write data with an initial value of zero.
 	.bss : ALIGN(4) {
 		__bss = .;
 		*(.bss .bss.* .sbss .sbss*);
