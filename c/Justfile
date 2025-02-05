@@ -1,0 +1,6 @@
+alias r := run
+qemu := "/usr/bin/qemu-system-riscv32"
+
+run:
+	set -xue
+	{{qemu}} -machine virt -bios default -nographic -serial mon:stdio --no-reboot
