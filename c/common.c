@@ -105,6 +105,7 @@ void printf(const char *fmt, ...) {
     } else {
       putchar(*fmt);
     }
+    fmt++;
   }
 end:
   va_end(vargs);
