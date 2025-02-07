@@ -42,4 +42,10 @@ SECTIONS {
 	. = ALIGN(4);			/* Align the current address to the 4 byte boundary... */
 	. += 128 * 1024;	/* ...add 128 kB to it... */
 	__stack_top = .;		/* ...and declare it as the top of the stack. */
+
+	/* Give the memory allocator some memory to allocate. */
+	. = ALIGN(4096);
+	__free_ram = .;
+	. += 64 * 1024 * 1024; /* 64MB */
+	__free_ram_end = .;
 }
